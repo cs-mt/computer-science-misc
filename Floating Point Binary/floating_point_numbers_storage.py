@@ -1,10 +1,32 @@
+from codecs import decode
 import struct
 
-def float_to_bin(num):
-    return bin(struct.unpack('!I', struct.pack('!f', num))[0])[2:].zfill(32)
+def bin_to_float(b, bits):
+    if bits == 32: 
+        return struct.unpack('!f',struct.pack('!I', int(b, 2)))[0]
+    else:
+      """ Convert binary string to a float. """
+      bf = int_to_bytes(int(b, 2), 8)  # 8 bytes needed for IEEE 754 binary64.
+      return struct.unpack('>d', bf)[0]
 
-def bin_to_float(binary):
-    return struct.unpack('!f',struct.pack('!I', int(binary, 2)))[0]
+
+def int_to_bytes(n, length):  # Helper function
+    """ Int/long to byte string.
+
+        Python 3.2+ has a built-in int.to_bytes() method that could be used
+        instead, but the following works in earlier versions including 2.x.
+    """
+    return decode('%%0%dx' % (length << 1) % n, 'hex')[-length:]
+
+
+def float_to_bin(value, bits):  # For testing.
+    if bits == 32:
+        return bin(struct.unpack('!I', struct.pack('!f', value))[0])[2:].zfill(32)
+    else:
+        """ Convert float to 64-bit binary string. """
+        [d] = struct.unpack(">Q", struct.pack(">d", value))
+        return '{:064b}'.format(d)
+
 
 # A 32 bit floating point number is stored in the following format in the memory. 
 
@@ -40,5 +62,30 @@ def bin_to_float(binary):
 
 # The final result is: 2^3 * 1.53125 = 12.25
 
-print(float_to_bin(12.25))
-print(bin_to_float("01000001010001000000000000000000"))
+# The same can be applied to 64 bit floats. 
+# 64 bit float has 1 sign bit, 11 exponent bits, and 52 significand bits. 
+# The bias for the 64 bit float is 2^(10) - 1 = 1023
+
+print(float_to_bin(12.25, 32))
+print(bin_to_float("01000001010001000000000000000000", 32))
+
+# Sometimes, floating point arithmetic isn't 100% accurate. 
+# For example, adding 0.1 and 0.2 will yield the result of 0.30000000000000004 
+# This is due to the fact that the exact values of 0.2 and 0.1 cannot be stored using the floating point system.
+
+binary = float_to_bin(0.1, 64)
+a = bin_to_float(binary, 64)
+print("0.1 in binary is {}, which equals to {:.17f}".format(binary, a))
+
+binary = float_to_bin(0.2, 64)
+b = bin_to_float(binary, 64)
+print("0.2 in binary is {}, which equals to {:.17f}".format(binary, b))
+
+binary = float_to_bin(0.10000000000000001+0.20000000000000001, 64)
+sum = bin_to_float(binary, 64)
+
+print("0.10000000000000001+0.20000000000000001 in binary is {}, which equals to {:.17f}".format(binary, sum))
+print("Sum: {}".format(a+b))
+
+# Adding the two actual values (0.10000000000000001, 0.20000000000000001), which are 64bit in this situation, gives us the result "0.30000000000000004". The same happens with 32 bit floats too but with a greater error rate.
+
