@@ -87,5 +87,5 @@ sum = bin_to_float(binary, 64)
 print("0.10000000000000001+0.20000000000000001 in binary is {}, which equals to {:.17f}".format(binary, sum))
 print("Sum: {}".format(a+b))
 
-# Adding the two actual values (0.10000000000000001, 0.20000000000000001), which are 64bit in this situation, gives us the result "0.30000000000000004". The same happens with 32 bit floats too but with a greater error rate.
+# Adding the two actual values (0.1, 0.2), which are 64bit in this situation, gives us the result "0.30000000000000004". The same happens with 32 bit floats too but with a greater error rate.
 
