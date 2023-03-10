@@ -40,5 +40,5 @@ def bin_to_float(binary):
 
 # The final result is: 2^3 * 1.53125 = 12.25
 
-print(float_to_bin(12.5))
-print(bin_to_float("01000001010010000000000000000000"))
+print(float_to_bin(12.25))
+print(bin_to_float("01000001010001000000000000000000"))
