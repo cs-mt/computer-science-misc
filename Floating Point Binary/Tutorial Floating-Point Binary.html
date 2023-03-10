@@ -1,0 +1,271 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>Tutorial: Floating-Point Binary</title>
+</head>
+
+<body>
+
+<p><strong><big><font face="Verdana">Tutorial: </font><font face="Verdana" color="#0000FF">Floating-Point
+Binary</font></big></strong></p>
+
+<p><small><font face="Verdana"><small>© Kip R. Irvine, 2000. All rights reserved.</small></font></small></p>
+
+<p><font face="Verdana"><small>There is no section of my book covering this topic, so this
+topic is presented as a tutorial. <a href="https://cstl-csm.semo.edu/xzhang/Class%20Folder/CS280/Workbook_HTML/FLOATING.htm">Click here to view</a> the
+workbook exercise relating to this topic.</small></font></p>
+
+<p><font face="Verdana"><small>The two most common floating-point binary storage formats
+used by Intel processors were created for Intel and later standardized by the IEEE
+organization:</small></font></p>
+
+<table width="95%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="30%"><small><font face="Verdana">IEEE Short Real: 32 bits </font></small></td>
+    <td width="70%"><font face="Verdana"><small>1 bit for the sign, 8 bits for the exponent,
+    and 23 bits for the mantissa. Also called <em>single precision</em>. </small></font></td>
+  </tr>
+  <tr>
+    <td width="30%"><small><font face="Verdana">IEEE Long Real: 64 bits</font></small></td>
+    <td width="70%"><font face="Verdana"><small>1 bit for the sign, 11 bits for the exponent,
+    and 52 bits for the mantissa. Also called <em>double precision</em>.</small></font></td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana"><br>
+Both formats use essentially the same method for storing floating-point binary numbers, so
+we will use the Short Real as an example in this tutorial. </font>The bits in an IEEE
+Short Real are arranged as follows, with the most significant bit (MSB) on the left:</p>
+
+<table width="89%" cellspacing="0" cellpadding="3" border="0">
+  <tbody><tr>
+    <td width="82%"><img src="FLOATI1.jpg" alt="wpe1D.jpg (8930 bytes)" width="629" height="100"></td>
+    <td width="18%">&nbsp;&nbsp;&nbsp;Fig. 1</td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana" color="#0000FF"><big>The Sign</big></font></p>
+
+<p><font face="Verdana">The sign of a binary floating-point number is represented by a
+single bit. A 1 bit indicates a negative number, and a 0 bit indicates a positive number.</font></p>
+
+<p><font face="Verdana" color="#0000FF"><big>The Mantissa</big></font></p>
+
+<p><font face="Verdana">It is useful to consider the way decimal floating-point numbers
+represent their mantissa. Using -3.154 x 10<sup>5</sup> as an example, the <strong>sign</strong>
+is negative, the <strong>mantissa</strong> is 3.154, and the <strong>exponent</strong> is
+5. The fractional portion of the mantissa is the sum of each digit multiplied by a power
+of 10:</font></p>
+
+<p><font face="Verdana">&nbsp;&nbsp;&nbsp; .154 =&nbsp; 1/10 + 5/100 + 4/1000</font></p>
+
+<p><font face="Verdana">A binary floating-point number is similar. For example, in the
+number +11.1011 x 2<sup>3</sup><strong>, </strong>the sign is positive, the mantissa is
+11.1011, and the exponent is 3. The fractional portion of the mantissa is the sum of
+successive powers of 2. In our example, it is expressed as:</font></p>
+
+<p><font face="Verdana">&nbsp;&nbsp;&nbsp; .1011 = 1/2 + 0/4 + 1/8 + 1/16</font></p>
+
+<p><font face="Verdana">Or, you can calculate this value as 1011 divided by 2<sup>4</sup>.
+In decimal terms, this is eleven divided by sixteen, or 0.6875. Combined with the
+left-hand side of 11.1011, the decimal value of the number is 3.6875. Here are additional
+examples:</font></p>
+
+<table width="95%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="53%" align="center"><font face="Verdana"><strong>Binary Floating-Point</strong></font></td>
+    <td width="30%" align="center"><font face="Verdana"><strong>Base 10 Fraction</strong></font></td>
+    <td width="47%" align="center"><font face="Verdana"><strong>Base 10 Decimal</strong></font></td>
+  </tr>
+  <tr>
+    <td width="53%"><font face="Verdana">&nbsp;11.11</font></td>
+    <td width="30%"><font face="Verdana">&nbsp;3 &nbsp;3/4</font></td>
+    <td width="47%"><font face="Verdana">3.75</font></td>
+  </tr>
+  <tr>
+    <td width="53%"><font face="Verdana">&nbsp;0.00000000000000000000001 </font></td>
+    <td width="30%"><font face="Verdana">&nbsp;1/</font>8388608</td>
+    <td width="47%">0.<font face="Verdana">00000011920928955078125</font></td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana">The last entry in this table shows the smallest fraction that can
+be stored in a 23-bit mantissa. The following table shows a few simple examples of binary
+floating-point numbers alongside their equivalent decimal fractions and decimal values:</font></p>
+
+<table width="47%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="45%">Binary</td>
+    <td width="41%">Decimal Fraction</td>
+    <td width="47%">Decimal Value</td>
+  </tr>
+  <tr>
+    <td width="45%">.1</td>
+    <td width="41%">1/2</td>
+    <td width="47%">.5</td>
+  </tr>
+  <tr>
+    <td width="45%">.01</td>
+    <td width="41%">1/4</td>
+    <td width="47%">.25</td>
+  </tr>
+  <tr>
+    <td width="45%">.001</td>
+    <td width="41%">1/8</td>
+    <td width="47%">.125</td>
+  </tr>
+  <tr>
+    <td width="45%">.0001</td>
+    <td width="41%">1/16</td>
+    <td width="47%">.0625</td>
+  </tr>
+  <tr>
+    <td width="45%">.00001</td>
+    <td width="41%">1/32</td>
+    <td width="47%">.03125</td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana" color="#0000FF"><big>The Exponent</big></font></p>
+
+<p><font face="Verdana">IEEE Short Real exponents are stored as 8-bit unsigned integers
+with a bias of 127. Let's use the number 1.101 x 2<sup>5</sup> as an example. The exponent
+(5) is added to 127 and the sum (162) is stored in binary as 10100010. Here are some
+examples of exponents, first shown as decimal values, then as biased decimal, and finally
+as 8-bit unsigned binary:</font></p>
+
+<table width="73%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="29%" height="50" align="center"><strong><font face="Verdana">Exponent (E)</font></strong></td>
+    <td width="30%" height="50" align="center"><strong><font face="Verdana">Adjusted <br>
+    (E + 127)</font></strong></td>
+    <td width="116%" height="50" align="center"><strong><font face="Verdana">Binary
+    Representation</font></strong></td>
+  </tr>
+  <tr>
+    <td width="29%" height="25" align="center"><font face="Verdana">5</font></td>
+    <td width="30%" height="25" align="center"><font face="Verdana">+162</font></td>
+    <td width="116%" height="25" align="center"><font face="Verdana">10100010</font></td>
+  </tr>
+  <tr>
+    <td width="29%" height="25" align="center"><font face="Verdana">0</font></td>
+    <td width="30%" height="25" align="center"><font face="Verdana">+127</font></td>
+    <td width="64%" height="25" align="center"><font face="Verdana">01111111</font></td>
+  </tr>
+  <tr>
+    <td width="29%" height="25" align="center"><font face="Verdana">-10</font></td>
+    <td width="30%" height="25" align="center"><font face="Verdana">+117</font></td>
+    <td width="116%" height="25" align="center"><font face="Verdana">01110101</font></td>
+  </tr>
+  <tr>
+    <td width="29%" height="25" align="center"><font face="Verdana">128</font></td>
+    <td width="30%" height="25" align="center"><font face="Verdana">+255</font></td>
+    <td width="116%" height="25" align="center"><font face="Verdana">11111111</font></td>
+  </tr>
+  <tr>
+    <td width="29%" height="10" align="center"><font face="Verdana">-1</font></td>
+    <td width="30%" height="10" align="center"><font face="Verdana">+126</font></td>
+    <td width="116%" height="10" align="center"><font face="Verdana">01111110</font></td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana">Notice that the binary exponent is unsigned, so it cannot be
+negative. That is why the bias of 127 is used. The largest possible exponent is 128,
+because when added to 127, produces 255, the largest unsigned value represented by 8 bits.
+If the approximage range is from 1.0 x 2-127 to 1.0 x 2128. Expressed with decimal
+exponents, this is </font></p>
+
+<p><big><font face="Verdana" color="#0000FF">Normalizing the Mantissa</font></big></p>
+
+<p><font face="Verdana">Before a floating-point binary number can be stored correctly, its
+mantissa must be normalized. The process is basically the same as when normalizing a
+floating-point decimal number. For example, decimal 1234.567 is normalized as 1.234567 x
+10<sup>3</sup> by moving the decimal point so that only one digit appears before the
+decimal. The exponent expresses the number of positions the decimal point was moved left
+(positive exponent) or moved right (negative exponent).</font></p>
+
+<p><font face="Verdana">Similarly, the floating-point binary value 1101.101 is normalized
+as 1.101101 x 2<sup>3</sup> by moving the decimal point 3 positions to the left, and
+multiplying by 2<sup>3</sup>. Here are some examples of normalizations:</font></p>
+
+<table width="71%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="45%"><strong><font face="Verdana">Binary Value</font></strong></td>
+    <td width="31%"><strong><font face="Verdana">Normalized As</font></strong></td>
+    <td width="73%" align="center"><strong><font face="Verdana">Exponent</font></strong></td>
+  </tr>
+  <tr>
+    <td width="45%"><font face="Verdana">1101.101</font></td>
+    <td width="31%"><font face="Verdana">1.101101</font></td>
+    <td width="73%" align="center"><big><font face="Verdana"><sup>3</sup></font></big></td>
+  </tr>
+  <tr>
+    <td width="45%"><font face="Verdana">.00101</font></td>
+    <td width="31%"><font face="Verdana">1.01</font></td>
+    <td width="73%" align="center"><big><font face="Verdana"><sup>-3</sup></font></big></td>
+  </tr>
+  <tr>
+    <td width="45%"><font face="Verdana">1.0001</font></td>
+    <td width="31%"><font face="Verdana">1.0001</font></td>
+    <td width="73%" align="center"><big><font face="Verdana"><sup>0</sup></font></big></td>
+  </tr>
+  <tr>
+    <td width="45%"><font face="Verdana">10000011.0</font></td>
+    <td width="31%"><font face="Verdana">1.0000011</font></td>
+    <td width="73%" align="center"><font face="Verdana">7</font></td>
+  </tr>
+</tbody></table>
+
+<p><font face="Verdana">You may have noticed that in a normalized mantissa, the digit 1
+always appears to the left of the decimal point. In fact, the leading 1 is omitted from
+the mantissa's actual storage because it is redundant. </font></p>
+
+<p><font face="Verdana" color="#0000FF"><big>Putting it All Together</big></font></p>
+
+<p><font face="Verdana">We have now reached the point where we can combine the sign,
+exponent, and normalized mantissa into the binary IEEE short real representation. Using
+Figure 1 as a reference, the value 1.101 x 2<sup>0</sup> would be stored as sign = 0
+(positive), mantissa = 101, and exponent = 01111111 (the exponent value is added to 127).
+The leading "1." was dropped from the mantissa. Here are&nbsp; more examples:</font></p>
+
+<table width="86%" cellspacing="0" cellpadding="3" border="1">
+  <tbody><tr>
+    <td width="32%"><font face="Verdana"></font><p align="center"><font face="Verdana"><strong>Binary Value</strong></font></p></td>
+    <td width="36%" align="center"><font face="Verdana"><strong>Biased Exponent</strong></font></td>
+    <td width="74%"><font face="Verdana"></font><p align="center"><font face="Verdana"><strong>Sign, Exponent, Mantissa</strong></font></p></td>
+  </tr>
+  <tr>
+    <td width="32%"><font face="Verdana">&nbsp;-1.11</font></td>
+    <td width="36%" align="center"><font face="Verdana">127</font></td>
+    <td width="74%"><font face="Verdana">1&nbsp;&nbsp;01111111&nbsp;&nbsp;11000000000000000000000</font></td>
+  </tr>
+  <tr>
+    <td width="32%"><font face="Verdana">&nbsp;+1101.101</font></td>
+    <td width="36%" align="center"><font face="Verdana">130</font></td>
+    <td width="74%"><font face="Verdana">0&nbsp;&nbsp;10000010&nbsp;&nbsp;10110100000000000000000</font></td>
+  </tr>
+  <tr>
+    <td width="32%"><font face="Verdana">&nbsp;-.00101</font></td>
+    <td width="36%" align="center"><font face="Verdana">124</font></td>
+    <td width="74%"><font face="Verdana">1&nbsp;&nbsp;01111100&nbsp;&nbsp;01000000000000000000000</font></td>
+  </tr>
+  <tr>
+    <td width="32%"><font face="Verdana">&nbsp;+100111.0</font></td>
+    <td width="36%" align="center"><font face="Verdana">132</font></td>
+    <td width="74%"><font face="Verdana">0&nbsp;&nbsp;10000100&nbsp;&nbsp;00111000000000000000000</font></td>
+  </tr>
+  <tr>
+    <td width="32%"><font face="Verdana">&nbsp;+.0000001101011</font></td>
+    <td width="36%" align="center"><font face="Verdana">120</font></td>
+    <td width="74%"><font face="Verdana">0&nbsp;&nbsp;01111000&nbsp;&nbsp;10101100000000000000000</font></td>
+  </tr>
+</tbody></table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+
+</body></html>
